@@ -11,12 +11,12 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            Execute("echo hello", 10);
-            Execute("cd", 10);
+            Console.Write(Execute("echo hello", 10));
+            Console.Write(Execute("cd", 10));
         }
-        public static void Execute(string command, int seconds)
+        public static string Execute(string command, int seconds)
         {
-            
+            string output = "";
             if (command != null && !command.Equals(""))
             {
                 Process process = new Process();//创建进程对象  
@@ -40,7 +40,7 @@ namespace ConsoleApp2
                         {
                             process.WaitForExit(seconds); //等待进程结束，等待时间为指定的毫秒  
                         }
-                        
+                        output = process.StandardOutput.ReadToEnd();
                     }
                 }
                 catch (Exception ex)
@@ -54,7 +54,7 @@ namespace ConsoleApp2
                 }
                 
             }
-            
+            return output;
         }
     }
 }
